@@ -13,7 +13,23 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost/amazona");
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then(() => {
+    console.log("connected to db");
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+
+/* mongoose
+  .connect(process.env.MONGODB_URL || "mongodb://localhost/amazona")
+  .then(() => {
+    console.log("connected to db");
+  })
+  .catch((err) => {
+    console.log(err.message);
+  }); */
 
 /*
 app.get("/api/products/:id", (req, res) => {
